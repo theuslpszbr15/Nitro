@@ -1,0 +1,11 @@
+{
+  "name": "nitro",
+  "version": "1.0.0",
+  "description": "Nitro - painel do After Effects para editores de vídeo curto",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/lib.test.js tests/tools.test.js",
+    "test:host": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/host/run-host-tests.ps1"
+  },
+  "license": "MIT"
+}

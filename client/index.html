@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nitro</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <img class="logo" src="img/logo.png" alt="">
+      <span class="word">NITRO</span>
+      <span class="ver-badge">PRO TOOLS</span>
+    </div>
+    <div class="ctx" id="ctx" title="Composição ativa">
+      <span class="dot"></span><span id="ctxText">Conectando…</span>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="side" role="tablist">
+      <button class="tab active" data-tab="import" title="Importar"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg><span>Importar</span></button>
+      <button class="tab" data-tab="animate" title="Animar"><svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-1 7 9-11h-7z"/></svg><span>Animar</span></button>
+      <button class="tab" data-tab="text" title="Texto"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg><span>Texto</span></button>
+      <button class="tab" data-tab="speech" title="Fala IA"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg><span>Fala IA</span></button>
+      <button class="tab" data-tab="layout" title="Layout"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="12" cy="12" r="2.2"/></svg><span>Layout</span></button>
+      <button class="tab" data-tab="export" title="Exportar"><svg viewBox="0 0 24 24"><path d="M12 15V3m0 0L7 8m5-5l5 5M4 15v4a2 2 0 002 2h12a2 2 0 002-2v-4"/></svg><span>Exportar</span></button>
+      <div class="side-fill"></div>
+      <button class="tab" data-tab="settings" title="Ajustes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg><span>Ajustes</span></button>
+    </nav>
+
+    <main>
+      <!-- IMPORTAR -->
+      <section class="page active" data-page="import">
+        <div class="page-head"><h2>Importar</h2><p>Traga mídia para a comp sem sair do AE.</p></div>
+
+        <div class="card hero" id="cardDownload">
+          <div class="hero-top">
+            <div class="hero-icon"><svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1M14 10a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg></div>
+            <div><h3>Baixar por link</h3><p class="hint">Cola o link e o vídeo cai direto na timeline.</p></div>
+          </div>
+          <div class="platforms"><span>TikTok</span><span>YouTube</span><span>Instagram</span><span>X</span><span>+1000</span></div>
+          <div class="input-wrap">
+            <input id="dlUrl" type="text" placeholder="Cole o link aqui…" spellcheck="false">
+            <button class="icon-btn" id="dlPaste" title="Colar link do clipboard"><svg viewBox="0 0 24 24"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2"/></svg></button>
+          </div>
+          <div class="row">
+            <div class="seg" id="dlMode"><button class="on" data-v="video">Vídeo</button><button data-v="audio">Só áudio</button></div>
+            <label class="switch"><input type="checkbox" id="dlAdd" checked><i></i>Pôr na comp</label>
+          </div>
+          <div class="row">
+            <button class="btn primary grow" id="dlGo">Baixar e importar</button>
+            <button class="btn ghost hidden" id="dlCancel">Cancelar</button>
+          </div>
+          <div class="progress hidden" id="dlProg"><i></i><span></span></div>
+          <p class="fine">Baixe só conteúdo seu ou com permissão do autor.</p>
+        </div>
+
+        <div class="card feature">
+          <div class="thumb th-paste"><div class="stage"><div class="clip-ico"></div><div class="fly-img"></div></div></div>
+          <div class="feature-body">
+            <h3>Colar do clipboard <kbd>Ctrl</kbd><kbd>V</kbd></h3>
+            <p class="hint">Print, imagem do navegador/Figma (com transparência) ou arquivos copiados. Também dá pra arrastar.</p>
+            <div class="drop" id="pasteZone" tabindex="0"><b>Clique ou cole aqui</b></div>
+            <div class="row">
+              <span class="lbl">Ajuste</span>
+              <div class="seg" id="pasteFit"><button data-v="">Original</button><button class="on" data-v="fit">Caber</button><button data-v="fill">Preencher</button></div>
+            </div>
+            <button class="btn primary full" id="pasteGo">Colar na composição</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ANIMAR -->
+      <section class="page" data-page="animate">
+        <div class="page-head"><h2>Presets virais</h2><p>Clique pra aplicar nas camadas selecionadas, no playhead.</p></div>
+        <div class="chips" id="presetFilter">
+          <button class="on" data-cat="all">Todos</button><button data-cat="in">Entrada</button><button data-cat="emph">Ênfase</button><button data-cat="out">Saída</button><button data-cat="cam">Câmera</button>
+        </div>
+        <div class="grid-cards" id="presets">
+          <button class="pcard" data-preset="zoomPunch" data-cat="emph"><div class="thumb"><div class="stage"><i class="obj a-zoom"></i></div></div><b>Zoom Punch</b><small>Ênfase</small></button>
+          <button class="pcard" data-preset="popIn" data-cat="in"><div class="thumb"><div class="stage"><i class="obj a-pop"></i></div></div><b>Pop In</b><small>Entrada</small></button>
+          <button class="pcard" data-preset="shake" data-cat="emph"><div class="thumb"><div class="stage"><i class="obj a-shake"></i></div></div><b>Shake</b><small>Ênfase</small></button>
+          <button class="pcard" data-preset="bounce" data-cat="emph"><div class="thumb"><div class="stage"><i class="obj a-bounce"></i></div></div><b>Bounce</b><small>Ênfase</small></button>
+          <button class="pcard" data-preset="slideUp" data-cat="in"><div class="thumb"><div class="stage"><i class="obj a-up"></i></div></div><b>Slide Up</b><small>Entrada</small></button>
+          <button class="pcard" data-preset="slideLeft" data-cat="in"><div class="thumb"><div class="stage"><i class="obj a-left"></i></div></div><b>Slide Lateral</b><small>Entrada</small></button>
+          <button class="pcard" data-preset="fadeIn" data-cat="in"><div class="thumb"><div class="stage"><i class="obj a-fadein"></i></div></div><b>Fade In</b><small>Entrada</small></button>
+          <button class="pcard" data-preset="fadeOut" data-cat="out"><div class="thumb"><div class="stage"><i class="obj a-fadeout"></i></div></div><b>Fade Out</b><small>Saída</small></button>
+          <button class="pcard" data-preset="kenBurns" data-cat="cam"><div class="thumb"><div class="stage"><i class="obj photo a-ken"></i></div></div><b>Ken Burns</b><small>Câmera</small></button>
+          <button class="pcard" data-preset="strongEase" data-cat="cam"><div class="thumb"><div class="stage"><i class="obj dot a-ease"></i><svg class="curve" viewBox="0 0 100 60"><path d="M8 52 C 60 52, 40 8, 92 8"/></svg></div></div><b>Ease Forte</b><small>Keyframes</small></button>
+        </div>
+      </section>
+
+      <!-- TEXTO -->
+      <section class="page" data-page="text">
+        <div class="page-head"><h2>Texto viral</h2><p>Escolha um estilo; ele vale também para as legendas IA.</p></div>
+        <div class="grid-cards styles" id="textStyles">
+          <button class="scard on" data-style="classic"><div class="thumb tbg"><span class="st-classic">ISSO MUDOU</span></div><b>Clássico</b></button>
+          <button class="scard" data-style="highlight"><div class="thumb tbg"><span class="st-highlight">ISSO MUDOU</span></div><b>Destaque</b></button>
+          <button class="scard" data-style="nitro"><div class="thumb tbg"><span class="st-nitro">ISSO MUDOU</span></div><b>Nitro</b></button>
+          <button class="scard" data-style="neon"><div class="thumb tbg"><span class="st-neon">ISSO MUDOU</span></div><b>Neon</b></button>
+          <button class="scard" data-style="minimal"><div class="thumb tbg"><span class="st-minimal">isso mudou</span></div><b>Minimal</b></button>
+        </div>
+
+        <div class="card">
+          <div class="preview" id="txtPreview"><span>ISSO MUDOU TUDO</span></div>
+          <textarea id="txtInput" rows="2" placeholder="Digite o texto…">isso mudou tudo</textarea>
+          <div class="row">
+            <div class="seg" id="txtMode"><button class="on" data-v="single">Bloco</button><button data-v="words">Palavra a palavra</button></div>
+          </div>
+          <div class="row words-only hidden">
+            <label class="field">Palavras/card<input type="number" id="txtPer" value="2" min="1" max="8"></label>
+            <label class="field">Duração (s)<input type="number" id="txtDur" value="0.45" step="0.05" min="0.05"></label>
+          </div>
+          <details class="style">
+            <summary>Personalizar estilo</summary>
+            <div class="row">
+              <label class="field grow">Fonte (PostScript)<input type="text" id="stFont" value="Arial-Black" spellcheck="false"></label>
+              <label class="field w70">Tamanho<input type="number" id="stSize" value="96" min="8"></label>
+            </div>
+            <div class="row">
+              <label class="field color">Cor<input type="color" id="stFill" value="#ffffff"></label>
+              <label class="field color">Contorno<input type="color" id="stStroke" value="#000000"></label>
+              <label class="field w70">Espessura<input type="number" id="stStrokeW" value="12" min="0"></label>
+            </div>
+            <div class="row">
+              <label class="switch"><input type="checkbox" id="stUpper" checked><i></i>MAIÚSCULAS</label>
+              <label class="switch"><input type="checkbox" id="stAnim" checked><i></i>Pop animado</label>
+            </div>
+            <label class="field">Altura na tela <output id="stPosYOut">72%</output><input type="range" id="stPosY" min="5" max="95" value="72"></label>
+          </details>
+          <button class="btn primary full" id="txtGo">Criar texto</button>
+        </div>
+      </section>
+
+      <!-- FALA IA -->
+      <section class="page" data-page="speech">
+        <div class="page-head"><h2>Fala com IA</h2><p>Roda local com Whisper. Nada vai pra nuvem.</p></div>
+
+        <div class="card feature">
+          <div class="thumb th-captions"><div class="stage">
+            <div class="wave"></div>
+            <div class="cap-words"><span>ISSO</span><span>MUDOU</span><span>TUDO</span></div>
+          </div></div>
+          <div class="feature-body">
+            <h3>Legendas automáticas <span class="badge">IA</span></h3>
+            <p class="hint">Selecione a camada com fala e gere legendas no estilo escolhido em Texto.</p>
+            <div class="row">
+              <label class="field grow">Idioma
+                <select id="capLang"><option value="auto">Automático</option><option value="pt" selected>Português</option><option value="en">Inglês</option><option value="es">Espanhol</option></select>
+              </label>
+              <label class="field grow">Precisão
+                <select id="capModel"><option value="tiny">Rápida</option><option value="base" selected>Normal</option><option value="small">Alta</option></select>
+              </label>
+              <label class="field w70">Palavras<input type="number" id="capWords" value="3" min="1" max="8"></label>
+            </div>
+            <button class="btn primary full" id="capGo">Gerar legendas</button>
+            <div class="progress hidden" id="capProg"><i></i><span></span></div>
+          </div>
+        </div>
+
+        <div class="card feature">
+          <div class="thumb th-cut"><div class="stage">
+            <div class="track"><i class="s1"></i><i class="s2"></i><i class="s3"></i></div>
+          </div></div>
+          <div class="feature-body">
+            <h3>Cortar silêncios <span class="badge alt">Jump cut</span></h3>
+            <p class="hint">Remove as pausas da fala e junta os trechos.</p>
+            <label class="field">Limite de silêncio <output id="silDbOut">-35 dB</output><input type="range" id="silDb" min="-60" max="-15" value="-35"></label>
+            <div class="row">
+              <label class="field grow">Pausa mínima (s)<input type="number" id="silMin" value="0.35" step="0.05" min="0.1"></label>
+              <label class="field grow">Respiro (s)<input type="number" id="silPad" value="0.08" step="0.02" min="0"></label>
+            </div>
+            <button class="btn primary full" id="silGo">Cortar silêncios</button>
+            <div class="progress hidden" id="silProg"><i></i><span></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LAYOUT -->
+      <section class="page" data-page="layout">
+        <div class="page-head"><h2>Layout</h2><p>Posicione sem perder a camada de lugar.</p></div>
+
+        <div class="card">
+          <h3>Anchor point</h3>
+          <div class="anchor-grid" id="anchorGrid">
+            <button data-x="0" data-y="0"></button><button data-x="0.5" data-y="0"></button><button data-x="1" data-y="0"></button>
+            <button data-x="0" data-y="0.5"></button><button data-x="0.5" data-y="0.5" class="center"></button><button data-x="1" data-y="0.5"></button>
+            <button data-x="0" data-y="1"></button><button data-x="0.5" data-y="1"></button><button data-x="1" data-y="1"></button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Alinhar e ajustar</h3>
+          <div class="tiles t3">
+            <button class="tile" data-align="hv"><i class="ic ic-center"></i>Centro</button>
+            <button class="tile" data-align="h"><i class="ic ic-h"></i>Horizontal</button>
+            <button class="tile" data-align="v"><i class="ic ic-v"></i>Vertical</button>
+          </div>
+          <div class="tiles t4">
+            <button class="tile" data-fit="fit"><i class="ic ic-fit"></i>Caber</button>
+            <button class="tile" data-fit="fill"><i class="ic ic-fill"></i>Preencher</button>
+            <button class="tile" data-fit="width"><i class="ic ic-w"></i>Largura</button>
+            <button class="tile" data-fit="height"><i class="ic ic-hgt"></i>Altura</button>
+          </div>
+        </div>
+
+        <div class="card feature">
+          <div class="thumb th-916"><div class="stage"><div class="frame169"></div><div class="frame916"><i></i></div></div></div>
+          <div class="feature-body">
+            <h3>Converter para 9:16</h3>
+            <p class="hint">Cria uma comp 1080×1920 a partir da comp ativa.</p>
+            <label class="switch"><input type="checkbox" id="vertBlur" checked><i></i>Fundo desfocado (Reels/TikTok)</label>
+            <button class="btn primary full" id="vertGo">Criar versão vertical</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPORTAR -->
+      <section class="page" data-page="export">
+        <div class="page-head"><h2>Exportar</h2><p>MP4 H.264 leve, até no AE 2021.</p></div>
+        <div class="card feature">
+          <div class="thumb th-export"><div class="stage"><div class="phone"><i class="bar"></i><b>MP4</b></div></div></div>
+          <div class="feature-body">
+            <h3>Exportar MP4</h3>
+            <p class="hint">Renderiza a comp ativa (work area) e converte pra H.264 pronto pro TikTok.</p>
+            <button class="btn primary full" id="expGo">Exportar MP4</button>
+            <div class="progress hidden" id="expProg"><i></i><span></span></div>
+            <button class="btn ghost full hidden" id="expOpen">Mostrar arquivo</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Organizar projeto</h3>
+          <p class="hint">Separa comps, vídeos, imagens, áudios e solids em pastas.</p>
+          <button class="btn full" id="orgGo">Organizar agora</button>
+        </div>
+      </section>
+
+      <!-- AJUSTES -->
+      <section class="page" data-page="settings">
+        <div class="page-head"><h2>Ajustes</h2><p>Ferramentas que o Nitro usa por baixo.</p></div>
+        <div class="card">
+          <div class="deps" id="deps">
+            <div class="dep" data-dep="yt-dlp"><span class="st"></span><b>yt-dlp</b><small>downloads</small><button class="btn ghost sm" data-install="ytdlp">Instalar</button></div>
+            <div class="dep" data-dep="ffmpeg"><span class="st"></span><b>ffmpeg</b><small>export e cortes</small><button class="btn ghost sm" data-install="ffmpeg">Instalar</button></div>
+            <div class="dep" data-dep="python"><span class="st"></span><b>Python</b><small>legendas IA</small><button class="btn ghost sm" data-link="https://www.python.org/downloads/">Baixar</button></div>
+            <div class="dep" data-dep="whisper"><span class="st"></span><b>faster-whisper</b><small>legendas IA</small><button class="btn ghost sm" data-install="whisper">Instalar</button></div>
+          </div>
+          <button class="btn ghost full" id="depsRefresh">Verificar de novo</button>
+        </div>
+        <div class="card">
+          <label class="field">Pasta de downloads e colagens<input type="text" id="setDir" placeholder="Padrão: pasta do projeto / Documentos" spellcheck="false"></label>
+        </div>
+        <div class="card about">
+          <img src="img/logo.png" alt="">
+          <div><b>Nitro</b> <span id="ver">v1.0.0</span><br><a href="#" data-link="https://github.com/theuslpszbr15/Nitro">github.com/theuslpszbr15/Nitro</a></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="status" id="status"><span class="sdot"></span><span id="statusText">Pronto.</span></footer>
+
+  <script src="js/lib.js"></script>
+  <script src="js/cep.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
