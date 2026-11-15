@@ -13,7 +13,7 @@
 
 > cola o link → baixa o vídeo → legenda com IA → corta os silêncios → vira 9:16 → exporta MP4. **Sem sair do AE.**
 
-<p align="center"><img src="docs/promo-preview.gif" width="300" alt="Vídeo de apresentação do Nitro"></p>
+<p align="center"><img src="docs/promo-preview.gif" width="640" alt="Vídeo de apresentação do Nitro"></p>
 
 ## ⚡ O que tem dentro
 
@@ -44,7 +44,7 @@ Cada ação vira **um único Ctrl+Z** no AE.
   <img src="docs/panel-export.png" width="32%" alt="Exportar">
 </p>
 
-<p align="center"><img src="docs/ae-nitro.png" alt="Nitro aberto no After Effects 2021 gerando legendas"></p>
+<p align="center"><img src="docs/ae-nitro.png" alt="Versão 9:16 criada pelo Nitro no After Effects 2021"></p>
 
 ## 📦 Instalação
 
